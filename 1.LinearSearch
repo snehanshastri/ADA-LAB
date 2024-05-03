@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <time.h>
+void lsearch(int,int,int[]);
+
+void main()
+{
+    float a;
+    clock_t time_req;
+ 
+    // Without using pow function
+    time_req = clock();
+    
+    int n;
+    int key;
+    printf("Enter the value of n:\n");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter the array values:\n");
+    int j;
+    for(j=0;j<n;j++)
+    scanf("%d",&arr[j]);
+    printf("Enter search value:\n");
+    scanf("%d",&key);
+    lsearch(n,key,arr);
+    
+    time_req = clock() - time_req;
+    printf("Processor time taken: %f "
+           "seconds\n",
+           (float)time_req / CLOCKS_PER_SEC);
+ 
+    
+
+}
+
+void lsearch(int n, int key, int arr[])
+{
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]==key)
+        {
+            printf("%d found at position: %d \n",key,i+1);
+            return;
+        }
+    }
+    printf("%d not found.",key);
+}
+
+
+//Output:
+
+Enter the value of n:
+5
+Enter the array values:
+1 4 7 8 9
+Enter search value:
+7
+7 found at position: 3 
+Processor time taken: 0.000170 seconds
