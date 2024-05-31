@@ -1,0 +1,56 @@
+// Online C compiler to run C program online
+#include<stdio.h>
+
+int s[10];
+int res[10];
+int top=-1;
+void dfs_tp(int, int[][10]);
+void dfs(int,int,int[][10]);
+
+void main()
+{
+    int n;
+    int i;
+    int j;
+printf("Enter no.of nodes:\n");
+scanf("%d",&n);
+int a[n][n];
+printf("Enter adjacency matrix:\n");
+for(i=0;i<n;i++)
+{
+    for(j=0;j<n;j++)
+    {
+        scanf("%d",&a[i][j]);
+    }
+}
+dfs_tp(n,a);
+printf("Topologically sorted array is:\n");
+for(int i=top;i>=0;i--)
+printf("%d\t",res[i]);
+
+printf("\n");
+
+}
+
+void dfs_tp(int n, int a[][10])
+{
+    for(int i=0;i<n;i++)
+    s[i]=0;
+
+    for(int u=0;u<n;u++)
+    {
+        if(s[u]==0)
+        dfs(u,n,a);
+    }
+}
+
+void dfs(int u, int n, int a[][10])
+{
+    s[u]=1;
+    for(int v=0;v<n;v++)
+    {
+        if(a[u][v]==1 && s[v]==0)
+        dfs(v,n,a);
+    }
+    res[++top]=u;
+}
