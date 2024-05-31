@@ -1,0 +1,27 @@
+// Online C compiler to run C program online
+
+#include<stdio.h>
+int gcd(int,int);
+
+void main()
+{
+    int a;
+    int b;
+    int res;
+    printf("Enter two numbers to calculate gcd:\n");
+    scanf("%d",&a);
+    scanf("%d",&b);
+    res=gcd(a,b);
+    printf("Result:%d",res);
+}
+
+int gcd(int m, int n)
+{
+    int r;
+    if(n==0)
+    return m;
+    else
+    {
+        return gcd(n,m%n);
+    }
+}
