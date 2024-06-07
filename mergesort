@@ -1,0 +1,70 @@
+#include<stdio.h>
+
+void simplemerge(int[], int, int, int);
+void mergesort(int[], int, int);
+
+int c[100]; 
+
+void main()
+{
+    int n, low, high;
+    
+    printf("Enter the no. of elements:\n");
+    scanf("%d", &n);
+    int a[n];
+    low = 0;
+    high = n - 1;
+    
+    printf("Enter the unsorted array values:\n");
+    for(int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    
+    printf("Sorted elements are:\n");
+    mergesort(a, low, high);
+    for(int i = 0; i < n; i++)
+    {
+        printf("%d\t", a[i]);
+    }
+}
+
+void mergesort(int a[], int low, int high)
+{
+    int mid;
+    if(low < high)
+    {
+       mid = (low + high) / 2;
+       mergesort(a, low, mid);
+       mergesort(a, mid + 1, high);
+       simplemerge(a, low, mid, high);
+    }
+}
+
+void simplemerge(int a[], int low, int mid, int high)
+{
+    int i = low, k = 0, j; 
+    j = mid + 1;
+    int n = high + 1;
+
+    while(i <= mid && j <= high)
+    {
+        if(a[i] < a[j])
+        {
+            c[k++] = a[i++];
+        }
+        else
+        {
+            c[k++] = a[j++];
+        }
+    }
+
+    while(i <= mid)
+        c[k++] = a[i++];
+    
+    while(j <= high)
+        c[k++] = a[j++];
+    
+    for(int i = low; i < n; i++) 
+    {
+        a[i] = c[i - low]; 
+    }
+}
