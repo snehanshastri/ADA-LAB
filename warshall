@@ -1,0 +1,75 @@
+// Online C compiler to run C program online
+#include<stdio.h>
+
+void warshall(int[][100],int);
+
+void main()
+{
+    int n;
+    printf("Enter the no.of vertices:\n");
+    scanf("%d",&n);
+    printf("Enter the adjacency matrix:\n");
+    int a[100][100];
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("Path Matrix is:\n");
+    warshall(a,n);
+    
+}
+
+void warshall(int a[][100],int n)
+{
+    int P[n][n];
+    int i,j,k;
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            P[i][j]=a[i][j];
+            
+        }
+    }
+    
+    for(k=0;k<n;k++)
+    {
+        for(i=0;i<n;i++)
+        {
+            for(j=0;j<n;j++)
+            {
+                if(( P[i][j]==0) && P[i][k]==1 && P[k][j]==1)
+                P[i][j]=1;
+            }
+        }
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d\t",P[i][j]);
+            
+        }
+        printf("\n");
+    }
+}
+
+//Output:
+Enter the no.of vertices:
+4
+Enter the adjacency matrix:
+0 1 0 0
+0 0 0 1
+0 0 0 0
+1 0 1 0
+Path Matrix is:
+1	1	1	1	
+1	1	1	1	
+0	0	0	0	
+1	1	1	1	
