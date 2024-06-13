@@ -1,0 +1,84 @@
+// Online C compiler to run C program online
+#include<stdio.h>
+
+void floyds(int[][100],int);
+int min(int,int);
+void main()
+{
+    int n;
+    printf("Enter the no.of vertices:\n");
+    scanf("%d",&n);
+    printf("Enter the cost adjacency matrix:\n");
+    int a[100][100];
+    
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("Distance Matrix is:\n");
+    floyds(a,n);
+    
+}
+
+void floyds(int a[][100],int n)
+{
+    int D[n][n];
+    int i,j,k;
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            D[i][j]=a[i][j];
+            
+        }
+    }
+
+    for(k=0;k<n;k++)
+    {
+        for(i=0;i<n;i++)
+        {
+            for(j=0;j<n;j++)
+            {
+                D[i][j]=min(D[i][j],(D[i][k]+D[k][j]));
+            }
+        }
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d\t",D[i][j]);
+            
+        }
+        printf("\n");
+    }
+}
+
+int min(int a,int b)
+{
+    if(a<=b)
+    return a;
+    else
+    return b;
+}
+
+//Output:
+Enter the no.of vertices:
+4
+Enter the cost adjacency matrix:
+0 999 3 999
+2 0 999 999
+999 6 0 1
+7 999 999
+0
+Distance Matrix is:
+0	9	3	4	
+2	0	5	6	
+8	6	0	1	
+7	16	10	0	
+
