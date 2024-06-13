@@ -1,0 +1,16 @@
+// Online C compiler to run C program online
+#include<stdio.h>
+void knapsack(int,int,int[],int[],int[][100]);
+void main()
+{
+    int n;
+    printf("Enter no.of items:\n");
+    int weight[100];
+    int value[100];
+    printf("Enter weight and value of the corresponding item:\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d%d",&weight[i],&value[i]);
+    }
+    
+}
