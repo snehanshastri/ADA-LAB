@@ -1,16 +1,57 @@
-// Online C compiler to run C program online
 #include<stdio.h>
-void knapsack(int,int,int[],int[],int[][100]);
-void main()
+
+// Function to find maximum of two integers
+int max(int a, int b) { return (a > b)? a : b; }
+
+// Returns the maximum value that can be put in a knapsack of capacity W
+int knapsack(int W, int wt[], int val[], int n)
+{
+   int i, w;
+   int K[n+1][W+1];
+ 
+   // Build table K[][] in bottom up manner
+   for (i = 0; i <= n; i++)
+   {
+       for (w = 0; w <= W; w++)
+       {
+           if (i==0 || w==0)
+               K[i][w] = 0;
+           else if (wt[i-1] <= w)
+                 K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
+           else
+                 K[i][w] = K[i-1][w];
+       }
+   }
+ 
+   return K[n][W];
+}
+
+int main()
 {
     int n;
-    printf("Enter no.of items:\n");
-    int weight[100];
-    int value[100];
-    printf("Enter weight and value of the corresponding item:\n");
+    printf("Enter the no.of items:\n");
+    scanf("%d",&n);
+    int wt[100];
+    int val[100];
+    int W=50;
+    printf("Enter the weight of each item and its corresponding value:\n");
     for(int i=0;i<n;i++)
     {
-        scanf("%d%d",&weight[i],&value[i]);
+        scanf("%d%d",&wt[i],&val[i]);
     }
-    
+    printf("Maximum value that can be obtained is %d\n", knapsack(W, wt, val, n));
+    return 0;
 }
+
+//output:
+Enter the no.of items:
+3
+Enter the weight of each item and its corresponding value:
+10
+60
+20
+100
+30
+120
+Maximum value that can be obtained is 220
+
