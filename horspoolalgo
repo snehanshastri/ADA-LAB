@@ -69,3 +69,11 @@ void shifttable(char p[], int s[])
         s[p[i]] = m - 1 - i;
     }
 }
+
+Output:
+Enter the text string:
+jim saw me at a barber shop
+Enter the pattern string:
+barber
+The position where the pattern starts is: 16
+
