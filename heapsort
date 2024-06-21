@@ -1,0 +1,52 @@
+// Online C compiler to run C program online
+#include<stdio.h>
+
+void heapify(int[],int);
+
+void main()
+{
+    int n;
+    int a[50];
+    printf("Enter the no.of elements:\n");
+    scanf("%d",&n);
+    printf("Enter array elements to heap sort:\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    printf("The sorted array elements are:\n");
+    heapify(a,n);
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\t",a[i]);
+    }
+}
+
+void heapify(int a[],int n)
+{
+    int k;
+    int c;
+    int key;
+    int p;
+    for(k=1;k<=n-1;k++)
+    {
+        key=a[k];
+        c=k;
+        p=(c-1)/2;
+        while(c>0 && key>a[p])
+        {
+            a[c]=a[p];
+            c=p;
+            p=(c-1)/2;
+        }
+        a[c]=key;
+    }
+}
+
+Output:
+Enter the no.of elements:
+7
+Enter array elements to heap sort:
+50 25 30 75 100 45 80
+The sorted array elements are:
+100	75	80	25	50	30	45	
