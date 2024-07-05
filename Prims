@@ -1,0 +1,110 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+void prims(int[][50],int);
+void main()
+{
+    int cost[50][50];
+    int n;
+    printf("Enter no.of vertices:\n");
+    scanf("%d",&n);
+    printf("Enter cost adjacency matrix:\n");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&cost[i][j]);
+        }
+    }
+    
+    printf("Result:\n");
+    prims(cost,n);
+    
+}
+
+void prims(int cost[][50], int n)
+{
+    int d[10];
+    int p[10];
+    int s[10];
+    int min=999;
+    int source=0;
+    int sum;
+    int k;
+    int u,v;
+    int t[10][10];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(cost[i][j]!=0 && cost[i][j]<min)
+            {
+                min=cost[i][j];
+                source=i;
+            }
+        }
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        d[i]=cost[source][i];
+        s[i]=0;
+        p[i]=source;
+    }
+    
+    s[source]=1;
+    sum=0;
+    k=0;
+    
+    for(int i=1;i<n;i++)
+    {
+        u=-1;
+        min=999;
+        for(int j=0;j<n;j++)
+        {
+            if(s[j]==0)
+            {
+                if(d[j]<min)
+                {
+                    min=d[j];
+                    u=j;
+                }
+            }
+        }
+       t[k][0]=u;
+       t[k][1]=p[u];
+       k=k+1;
+       sum=sum+cost[u][p[u]];
+       s[u]=1;
+       
+       for(int v=0;v<n;v++)
+       {
+           if(s[v]==0 && cost[u][v]<d[v])
+           {
+               d[v]=cost[u][v];
+               p[v]=u;
+           }
+       }
+    }
+    printf("Shortest path cost:%d\n",sum);
+    printf("Minimum spanning tree vertices:\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("%d,%d\n",t[i][0],t[i][1]);
+}
+}
+
+//Output:
+Enter no.of vertices:
+4
+Enter cost adjacency matrix:
+0 1 5 2
+1 0 9999 9999
+5 9999 0 3
+2 9999 3 0
+Result:
+Shortest path cost:6
+Minimum spanning tree vertices:
+1,0
+3,0
+2,3
+0,0
