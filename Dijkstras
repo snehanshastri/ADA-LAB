@@ -1,0 +1,99 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+void dijkstras(int [][50], int);
+void main()
+{
+    int cost[50][50];
+    int n;
+    printf("Enter no.of vertices:\n");
+    scanf("%d",&n);
+    printf("Enter cost adjacency matrix:\n");
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&cost[i][j]);
+        }
+    }
+    
+    printf("Result:\n");
+    dijkstras(cost,n);
+    
+}
+
+void dijkstras(int a[][50], int n)
+{
+    int d[10];
+    int visited[10];
+    int p[10];
+    int u,v;
+    int s;
+    int min;
+    
+    printf("Enter the source:\n");
+    scanf("%d",&s);
+    
+    for(int i=0;i<n;i++)
+    {
+        d[i]=a[s][i];
+        visited[i]=0;
+        p[i]=s;
+    }
+    
+    visited[s]=1;
+    for(int i=0;i<n;i++)
+    {
+        min=999;
+        u=0;
+        for(int j=0;j<n;j++)
+        {
+            if(visited[j]==0)
+            {
+                if(d[j]<min)
+                {
+                    min=d[j];
+                    u=j;
+                }
+            }
+        }
+        visited[u]=1;
+        for(int v=0;v<n;v++)
+        {
+            if(visited[v]==0 && d[u]+a[u][v]<d[v])
+            {
+                d[v]=d[u]+a[u][v];
+                p[v]=u;
+            }
+        }
+    }
+    
+    printf("The shortest paths from vertex %d are:\n", s);
+    for(int i = 0; i < n; i++) {
+        if(i != s) {
+            printf("To vertex %d: Distance = %d, Path = %d", i, d[i], i);
+            int j = i;
+            while(p[j] != s) {
+                j = p[j];
+                printf(" <- %d", j);
+            }
+            printf(" <- %d\n", s);
+        }
+    }
+}
+
+//Output:
+Enter no.of vertices:
+4
+Enter cost adjacency matrix:
+0 1 5 2
+1 0 9999 9999
+5 9999 0 3
+2 9999 3 0
+Result:
+Enter the source:
+0
+The shortest paths from vertex 0 are:
+To vertex 1: Distance = 1, Path = 1 <- 0
+To vertex 2: Distance = 5, Path = 2 <- 0
+To vertex 3: Distance = 2, Path = 3 <- 0
